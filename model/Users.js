@@ -57,8 +57,8 @@ const userSchema = new Schema({
 });
 
 userSchema.statics.createUser = (user) => {
-  return User.create(user).catch((e) => {
-    throw new Error(e);
+  return User.create(user).catch(() => {
+    throw new Error("Create user failed");
   });
 };
 
@@ -72,7 +72,7 @@ userSchema.statics.findUser = (id) => {
 
 userSchema.statics.getAllUser = () => {
   return User.find({}, { _id: 0 }).catch((e) => {
-    throw new Error(e);
+    throw new Error("Get user list failed");
   });
 };
 
@@ -82,22 +82,22 @@ userSchema.statics.updateUser = (user_id, user) => {
       id: user_id,
     },
     user
-  ).catch((e) => {
-    throw new Error(e);
+  ).catch(() => {
+    throw new Error("Update user failed");
   });
 };
 
 userSchema.statics.removeUser = (userId) => {
   return User.deleteOne({
     id: userId,
-  }).catch((e) => {
-    throw new Error(e);
+  }).catch(() => {
+    throw new Error("Remove user failed");
   });
 };
 
 userSchema.statics.insertBatch = (jsonObj) => {
   return User.insertMany(jsonObj).catch((e) => {
-    throw new Error(e);
+    throw new Error("Insert batch failed");
   });
 };
 
